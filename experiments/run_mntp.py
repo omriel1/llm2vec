@@ -23,7 +23,7 @@ import os
 import sys
 import warnings
 from dataclasses import dataclass, field
-from itertools import chain
+from itertools import chain, islice
 from typing import Optional, Any, Tuple, List
 import numpy as np
 
@@ -261,6 +261,12 @@ class DataTrainingArguments:
         default=None,
         metadata={
             "help": "The configuration name of the dataset to use (via the datasets library)."
+        },
+    )
+    dataset_number_of_rows: Optional[int] = field(
+        default=100,
+        metadata={
+            "help": "Number of rows to load from the dataset"
         },
     )
     train_file: Optional[str] = field(
@@ -563,30 +569,20 @@ def main():
     # download the dataset.
     if data_args.dataset_name is not None:
         # Downloading and loading a dataset from the hub.
-        raw_datasets = load_dataset(
+        ds = load_dataset(
             data_args.dataset_name,
             data_args.dataset_config_name,
-            cache_dir=model_args.cache_dir,
-            token=model_args.token,
+            # cache_dir=model_args.cache_dir,
+            # token=model_args.token,
+            split="train",
             streaming=data_args.streaming,
         )
+        dataset_list = list(islice(ds, data_args.dataset_number_of_rows))
+        raw_datasets = datasets.DatasetDict()
+        validation_num = math.floor((data_args.validation_split_percentage/100)*len(dataset_list))
         if "validation" not in raw_datasets.keys():
-            raw_datasets["validation"] = load_dataset(
-                data_args.dataset_name,
-                data_args.dataset_config_name,
-                split=f"train[:{data_args.validation_split_percentage}%]",
-                cache_dir=model_args.cache_dir,
-                token=model_args.token,
-                streaming=data_args.streaming,
-            )
-            raw_datasets["train"] = load_dataset(
-                data_args.dataset_name,
-                data_args.dataset_config_name,
-                split=f"train[{data_args.validation_split_percentage}%:]",
-                cache_dir=model_args.cache_dir,
-                token=model_args.token,
-                streaming=data_args.streaming,
-            )
+            raw_datasets["validation"] = datasets.Dataset.from_list(dataset_list[:validation_num])
+            raw_datasets["train"] = datasets.Dataset.from_list(dataset_list[validation_num:])
     else:
         data_files = {}
         if data_args.train_file is not None:
