@@ -1,5 +1,5 @@
 # Connect
-1. Connect to TAU vpn
+1. Connect to TAU vpn: https://computing.tau.ac.il/helpdesk/remote-access/communication/vpn
 2. Connect to the login server (used to submit jobs to the worker nodes)
 Start with:
 ```
