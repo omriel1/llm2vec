@@ -75,6 +75,13 @@ rsync -vrah <path-on-local-machine> <user-name>@c-002.cs.tau.ac.il:<path-on-slur
 
 Now, lets copy the entire project **excluding** our virtual env. Make sure you run this command **on your local machine**
 from the projects' base directory.
+
+**On Windows:**
+```
+scp -r experiments llm2vec nlp_course scripts test_configs train_configs .env README.md setup.cfg setup.py <user-name>@c-002.cs.tau.ac.il:/home/joberant/NLP_2324b/<user-name>/llm2vec
+```
+
+**On Mac:**
 ```
 rsync -vrah experiments llm2vec nlp_course scripts test_configs train_configs .env README.md setup.cfg setup.py <user-name>@c-002.cs.tau.ac.il:/home/joberant/NLP_2324b/<user-name>/llm2vec --stats --progress
 ```
