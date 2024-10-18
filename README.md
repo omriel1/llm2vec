@@ -36,10 +36,10 @@ pip install flash-attn --no-build-isolation
 
 Add `.env` file:
 ```
-HF_HOME="/home/joberant/NLP_2324b/<user-name>/hf_cache"
-TRANSFORMERS_CACHE="/home/joberant/NLP_2324b/<user-name>/transformers_cache"
-HF_DATASETS_CACHE="/home/joberant/NLP_2324b/<user-name>/hf_dataset_cache"
-TORCH_HOME="/home/joberant/NLP_2324b/<user-name>/torch_cache"
+HF_HOME="/home/joberant/NLP_2324b/<user-name>/cache/hf_cache"
+TRANSFORMERS_CACHE="/home/joberant/NLP_2324b/<user-name>/cache/transformers_cache"
+HF_DATASETS_CACHE="/home/joberant/NLP_2324b/<user-name>/cache/hf_dataset_cache"
+TORCH_HOME="/home/joberant/NLP_2324b/<user-name>/cache/torch_cache"
 ```
 
 
