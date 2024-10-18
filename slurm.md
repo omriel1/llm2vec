@@ -58,7 +58,7 @@ bash
 ```
 And create a new virtual environment:
 ```
-conda create -n llm2vec
+conda create -n llm2vec python=3.9
 ```
 And now you can activate it using:
 ```
