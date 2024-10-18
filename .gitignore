@@ -11,3 +11,4 @@ output/
 cluster_scripts/**
 venv
 .idea
+.env

@@ -34,6 +34,15 @@ pip install -e .
 pip install flash-attn --no-build-isolation
 ```
 
+Add `.env` file:
+```
+HF_HOME="/home/joberant/NLP_2324b/<user-name>/hf_cache"
+TRANSFORMERS_CACHE="/home/joberant/NLP_2324b/<user-name>/transformers_cache"
+HF_DATASETS_CACHE="/home/joberant/NLP_2324b/<user-name>/hf_dataset_cache"
+TORCH_HOME="/home/joberant/NLP_2324b/<user-name>/torch_cache"
+```
+
+
 ## Getting Started
 LLM2Vec class is a wrapper on top of HuggingFace models to support enabling bidirectionality in decoder-only LLMs, sequence encoding and pooling operations. The steps below showcase an example on how to use the library.
 

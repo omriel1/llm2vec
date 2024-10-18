@@ -26,6 +26,7 @@ setup(
         "datasets",
         "evaluate",
         "scikit-learn",
+        "python-dotenv"
     ],
     extras_require={
         "evaluation": ["mteb>=1.12.60"],

@@ -24,8 +24,9 @@ import sys
 import warnings
 from dataclasses import dataclass, field
 from itertools import chain, islice
+from pathlib import Path
 from typing import Optional, Any, Tuple, List
-import numpy as np
+import dotenv
 
 import datasets
 import evaluate
@@ -66,6 +67,8 @@ require_version(
     "datasets>=1.8.0",
     "To fix: pip install -r examples/pytorch/language-modeling/requirements.txt",
 )
+env_file = Path(__file__).parents[1] / ".env"
+dotenv.load_dotenv(str(env_file))
 
 logger = logging.getLogger(__name__)
 MODEL_CONFIG_CLASSES = list(MODEL_FOR_MASKED_LM_MAPPING.keys())
@@ -338,7 +341,7 @@ class DataTrainingArguments:
             )
         },
     )
-    streaming: bool = field(default=False, metadata={"help": "Enable streaming mode"})
+    streaming: bool = field(default=True, metadata={"help": "Enable streaming mode"})
 
     def __post_init__(self):
         if self.streaming:
