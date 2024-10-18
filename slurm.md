@@ -63,6 +63,7 @@ conda create -n llm2vec
 And now you can activate it using:
 ```
 conda activate llm2vec
+conda install pip
 ```
 
 4. Copy the project into slurm
