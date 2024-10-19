@@ -581,6 +581,7 @@ def main():
             streaming=data_args.streaming,
         )
         dataset_list = list(islice(ds, data_args.dataset_number_of_rows))
+        dataset_list = [d for d in dataset_list if d["text"] is not None]
         raw_datasets = datasets.DatasetDict()
         validation_num = math.floor((data_args.validation_split_percentage/100)*len(dataset_list))
         if "validation" not in raw_datasets.keys():
