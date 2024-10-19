@@ -1,7 +1,7 @@
 {
     "model_name_or_path": "dicta-il/dictalm2.0-instruct",
     "dataset_name": "HeNLP/HeDC4",
-    "dataset_number_of_rows": 100,
+    "dataset_number_of_rows": 30000,
     "streaming": "True",
     "per_device_train_batch_size": 32,
     "per_device_eval_batch_size": 32,
@@ -21,5 +21,5 @@
     "lora_r": 16,
     "gradient_checkpointing": true,
     "torch_dtype": "bfloat16",
-    "attn_implementation": "sdpa"
+    "attn_implementation": "flash_attention_2"
 }
