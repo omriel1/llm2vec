@@ -21,6 +21,21 @@ conda activate llm2vec
 
 And start working!
 
+## Useful commands
+Submit a job
+```
+sbatch mntp.slurm
+```
+Examine all jobs for user
+```
+sacct -u <user-name>
+```
+Check status of queue
+```
+squeue --job -u <user-name>
+```
+
+
 ## First time setup
 **Just on first time**
 1. Create cache folders (**Just on first time**)
