@@ -18,6 +18,9 @@ def main():
     parser.add_argument('--path', type=str, required=True, help="Path to the model")
     args = parser.parse_args()
 
+    assert args.path is not None, "You should pass --path variable. For example:\n" \
+                                  "python scripts/sanity_check_trained_model.py --path ./output/mntp/dictalm2.0-instruct"
+
     l2v = LLM2Vec.from_pretrained(
         base_model_name_or_path="dicta-il/dictalm2.0-instruct",
         peft_model_name_or_path=args.path,
@@ -32,8 +35,6 @@ def main():
     ]
 
     vectors = l2v.encode(documents)
-    print(vectors.shape)
-    print(vectors)
     cos_sim_1_2 = F.cosine_similarity(vectors[0], vectors[1], dim=0)
     cos_sim_1_3 = F.cosine_similarity(vectors[0], vectors[2], dim=0)
     cos_sim_2_3 = F.cosine_similarity(vectors[1], vectors[2], dim=0)
@@ -44,6 +45,4 @@ def main():
 
 
 if __name__ == "__main__":
-    # run with:
-    # python scripts/sanity_check_trained_model.py --path ./output/mntp/dictalm2.0-instruct
     main()
