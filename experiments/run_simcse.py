@@ -165,6 +165,12 @@ class DataTrainingArguments:
             )
         },
     )
+    dataset_limit: Optional[int] = field(
+        default=100, metadata={"help": "number of rows to load"}
+    )
+    dataset_start_index: Optional[int] = field(
+        default=0, metadata={"help": "start loading from the specified row number"}
+    )
 
 
 @dataclass
