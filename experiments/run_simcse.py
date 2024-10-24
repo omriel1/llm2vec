@@ -337,6 +337,8 @@ def main():
         data_args.dataset_name,
         split="train",
         file_path=data_args.dataset_file_path,
+        dataset_start_index=data_args.dataset_start_index,
+        dataset_limit=data_args.dataset_limit
     )
 
     train_examples = [
