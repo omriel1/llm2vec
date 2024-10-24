@@ -26,7 +26,8 @@ setup(
         "datasets",
         "evaluate",
         "scikit-learn",
-        "python-dotenv"
+        "python-dotenv",
+        "langchain-text-splitters"
     ],
     extras_require={
         "evaluation": ["mteb>=1.12.60"],
