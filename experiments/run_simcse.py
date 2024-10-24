@@ -3,7 +3,7 @@ from dataclasses import dataclass, field
 import os
 import sys
 from typing import Any, Dict, List, Optional, Tuple, Union
-
+import datasets
 import torch
 from torch import nn
 
@@ -29,8 +29,6 @@ from llm2vec.loss.utils import load_loss
 
 from tqdm import tqdm
 
-transformers.logging.set_verbosity_error()
-
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     datefmt="%Y-%m-%d %H:%M:%S",
@@ -39,6 +37,7 @@ logging.basicConfig(
 logger = get_logger(__name__, log_level="INFO")
 MODEL_CONFIG_CLASSES = list(MODEL_FOR_MASKED_LM_MAPPING.keys())
 MODEL_TYPES = tuple(conf.model_type for conf in MODEL_CONFIG_CLASSES)
+
 
 
 def initialize_peft(
@@ -327,8 +326,12 @@ def main():
 
     set_seed(training_args.seed)
 
+
     if training_args.gradient_checkpointing:
         training_args.gradient_checkpointing_kwargs = {"use_reentrant": False}
+
+    transformers.logging.set_verbosity_info()
+    datasets.utils.logging.set_verbosity_info()
 
     train_dataset = load_dataset(
         data_args.dataset_name,
