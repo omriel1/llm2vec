@@ -1,3 +1,4 @@
+import logging
 from itertools import islice
 from typing import Optional, Dict, Any, List
 
@@ -7,6 +8,7 @@ from datasets import load_dataset
 from llm2vec.dataset.dataset import Dataset, TrainSample, DataSample
 from langchain_text_splitters import TextSplitter, RecursiveCharacterTextSplitter
 
+logger = logging.getLogger(__name__)
 
 class HeDC4(Dataset):
     """
@@ -61,8 +63,10 @@ class HeDC4(Dataset):
         dataset_list = list(
             islice(ds, self.start_index, self.limit)
         )
+        logger.info(f"Loaded {len(dataset_list)} rows from HeDC4")
         raw_texts = [d["text"] for d in dataset_list]
         texts = self._preprocess(raw_texts)
+        logger.info(f"After preprocessing a total of {len(texts)} rows.")
         id_ = self.start_index
         for text in texts:
             self.data.append(
