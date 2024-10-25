@@ -2,14 +2,7 @@ import argparse
 import torch
 import torch.nn.functional as F
 from llm2vec import LLM2Vec
-
-def get_device() -> str:
-    if torch.backends.mps.is_available():
-        return "mps"  # mac GPU
-    elif torch.cuda.is_available():
-        return "cuda"
-    else:
-        return "cpu"
+from nlp_course.utils import get_device
 
 
 def main():
