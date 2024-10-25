@@ -27,7 +27,8 @@ setup(
         "evaluate",
         "scikit-learn",
         "python-dotenv",
-        "langchain-text-splitters"
+        "langchain-text-splitters",
+        "black"
     ],
     extras_require={
         "evaluation": ["mteb>=1.12.60"],

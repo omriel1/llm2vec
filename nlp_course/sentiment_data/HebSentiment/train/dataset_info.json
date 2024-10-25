@@ -1,0 +1,70 @@
+{
+  "builder_name": "json",
+  "citation": "",
+  "config_name": "default",
+  "dataset_name": "json",
+  "dataset_size": 8685480,
+  "description": "",
+  "download_checksums": {
+    "/Users/omrilevy/Desktop/personal/git/university/llm2vec/nlp_course/sentiment_data/original_files/HebSentiment_train.jsonl": {
+      "num_bytes": 12924323,
+      "checksum": null
+    }
+  },
+  "download_size": 12924323,
+  "features": {
+    "id": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "task_name": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "tag_ids": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "text": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "campaign_id": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "annotator_agreement_strength": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "survey_name": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "industry": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "type": {
+      "dtype": "string",
+      "_type": "Value"
+    }
+  },
+  "homepage": "",
+  "license": "",
+  "size_in_bytes": 21609803,
+  "splits": {
+    "train": {
+      "name": "train",
+      "num_bytes": 8685480,
+      "num_examples": 35135,
+      "dataset_name": "json"
+    }
+  },
+  "version": {
+    "version_str": "0.0.0",
+    "major": 0,
+    "minor": 0,
+    "patch": 0
+  }
+}
