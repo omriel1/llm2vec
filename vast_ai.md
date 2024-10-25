@@ -6,10 +6,10 @@ ssh -p 14709 root@ssh5.vast.ai -L 8080:localhost:8080
 
 ## First time setup
 
-1. Create cache folders (**Just on first time**)
+1. Create folders
 ```
-mkdir cache
 mkdir llm2vec
+mkdir cache
 mkdir cache/hf_cache
 mkdir cache/transformers_cache
 mkdir cache/hf_dataset_cache
@@ -26,7 +26,7 @@ scp -P 14709 -r experiments llm2vec nlp_course scripts test_configs train_config
 scripts/install.sh
 ```
 
-4. Copy fine-tuned model
+4. Copy fine-tuned model(s)
 ```
 scp -P 14709 -r output root@ssh5.vast.ai:/root/llm2vec
 ```
@@ -35,4 +35,5 @@ make sure model was copied successfully:
 
 ```bash
 python scripts/sanity_check_trained_model.py --path ./output/mntp/dictalm2.0-instruct
+python scripts/sanity_check_trained_model.py --path ./output/mntp-simcse/dictalm2.0-instruct/checkpoint-800
 ```
