@@ -4,6 +4,7 @@ from typing import List
 
 import torch
 from datasets import DatasetDict
+from sklearn.dummy import DummyClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, classification_report
 
@@ -64,6 +65,34 @@ def evaluate_llm2vec_embedding_model(embedding_model: LLM2Vec, dataset: DatasetD
         y_test=y_test,
         sklearn_classifier=lr_clf,
     )
+
+    # Dummy classifier 1
+    dummy_most_frequent_clf = DummyClassifier(strategy="most_frequent")
+    dummy_most_frequent_clf, dummy_most_frequent_clf_results = (
+        train_and_evaluate_classifier(
+            X_train=X_train,
+            y_train=y_train,
+            X_test=X_test,
+            y_test=y_test,
+            sklearn_classifier=dummy_most_frequent_clf,
+        )
+    )
+
+    # Dummy classifier 2
+    dummy_uniform_clf = DummyClassifier(strategy="uniform", random_state=42)
+    dummy_uniform_clf, dummy_uniform_clf_results = train_and_evaluate_classifier(
+        X_train=X_train,
+        y_train=y_train,
+        X_test=X_test,
+        y_test=y_test,
+        sklearn_classifier=dummy_uniform_clf,
+    )
+
+    results = {
+        "lr_clf": lr_clf_results,
+        "dummy_most_frequent_clf": dummy_most_frequent_clf_results,
+        "dummy_uniform_clf": dummy_uniform_clf_results
+    }
     return results
 
 
@@ -87,7 +116,7 @@ def main():
     with open("results.json", "w") as json_file:
         json.dump(results, json_file, indent=4)
 
-    print("Results have been saved to classification_results.json")
+    print("Results have been saved")
 
 
 if __name__ == "__main__":
