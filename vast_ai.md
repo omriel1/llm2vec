@@ -6,7 +6,11 @@ If not, please download it from: https://drive.google.com/drive/folders/1u5ogHlf
 You should download the `output` folder as-is, and locate it in the projects' top directory.
 
 # Vast.ai
-Assuming you've rented a machine and you want to use/test the fine-tuned models, or perform
+## Choosing a machine
+Use `pytorch/pytorch:2.4.0-cuda12.1-cudnn9-runtime` as the default container template
+
+## Setup a new machine
+Assuming you've rented a machine, and you want to use/test the fine-tuned models, or perform
 a fine-tuning from scratch:
 
 1. Copy the ssh command inorder to connect to the machine. Should look like
