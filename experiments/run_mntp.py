@@ -24,16 +24,14 @@ import sys
 import warnings
 from dataclasses import dataclass, field
 from itertools import chain, islice
-from pathlib import Path
 from typing import Optional, Any, Tuple, List
-import dotenv
 
 import datasets
 import evaluate
-from datasets import load_dataset
-
 import torch
 import transformers
+from datasets import load_dataset
+from peft import LoraConfig, get_peft_model
 from transformers import (
     CONFIG_MAPPING,
     MODEL_FOR_MASKED_LM_MAPPING,
@@ -51,8 +49,6 @@ from transformers.trainer_utils import get_last_checkpoint
 from transformers.utils import send_example_telemetry
 from transformers.utils.versions import require_version
 
-from peft import LoraConfig, get_peft_model
-
 from llm2vec.models import (
     MistralBiForMNTP,
     LlamaBiForMNTP,
@@ -67,8 +63,6 @@ require_version(
     "datasets>=1.8.0",
     "To fix: pip install -r examples/pytorch/language-modeling/requirements.txt",
 )
-env_file = Path(__file__).parents[1] / ".env"
-dotenv.load_dotenv(str(env_file))
 
 logger = logging.getLogger(__name__)
 MODEL_CONFIG_CLASSES = list(MODEL_FOR_MASKED_LM_MAPPING.keys())
