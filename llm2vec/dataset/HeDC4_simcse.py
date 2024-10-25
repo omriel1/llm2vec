@@ -86,7 +86,7 @@ class HeDC4(Dataset):
             raise ValueError("HeDC4 has 'train' split only.")
 
     def _preprocess(self, data: List[str]) -> List[str]:
-        filtered_texts = self._filter_none(data)
+        filtered_texts = self._filter_none_text(data)
         chunked_texts = self._split_texts(filtered_texts, self.chunker)
         return chunked_texts
 
