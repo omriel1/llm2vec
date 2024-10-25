@@ -1,0 +1,14 @@
+{
+  "lr_clf": {
+    "accuracy": 0.7723502304147466,
+    "classification_report": "              precision    recall  f1-score   support\n\n    Negative       0.70      0.75      0.72       433\n     Neutral       0.82      0.80      0.81      1233\n    Neutral        0.00      0.00      0.00         1\n    Positive       0.73      0.72      0.73       503\n\n    accuracy                           0.77      2170\n   macro avg       0.56      0.57      0.56      2170\nweighted avg       0.77      0.77      0.77      2170\n"
+  },
+  "dummy_most_frequent_clf": {
+    "accuracy": 0.5682027649769585,
+    "classification_report": "              precision    recall  f1-score   support\n\n    Negative       0.00      0.00      0.00       433\n     Neutral       0.57      1.00      0.72      1233\n    Neutral        0.00      0.00      0.00         1\n    Positive       0.00      0.00      0.00       503\n\n    accuracy                           0.57      2170\n   macro avg       0.14      0.25      0.18      2170\nweighted avg       0.32      0.57      0.41      2170\n"
+  },
+  "dummy_uniform_clf": {
+    "accuracy": 0.22995391705069124,
+    "classification_report": "              precision    recall  f1-score   support\n\n    Negative       0.19      0.25      0.22       433\n     Neutral       0.53      0.23      0.32      1233\n    Neutral        0.00      0.00      0.00         1\n    Positive       0.20      0.21      0.20       503\n\n    accuracy                           0.23      2170\n   macro avg       0.23      0.17      0.19      2170\nweighted avg       0.39      0.23      0.27      2170\n"
+  }
+}
