@@ -191,6 +191,15 @@ if __name__ == "__main__":
         epochs=args.epochs,
     )
 
-    output_model_file = args.output_dir + "/llm2vec_sentiment_classifier.pth"
-    torch.save(trained_cls.state_dict(), output_model_file)
+    output_model_file = args.output_dir + "/llm2vec_classifier_head.pth"
+
+    torch.save(
+        {
+            "linear_layer_stack_state_dict": l2v_cls.linear_layer_stack.state_dict(),
+            "embedding_dim": l2v_cls.embedding_dim,  # Useful if you want to reinitialize with the same dimensions
+            "num_labels": l2v_cls.num_labels,
+        },
+        output_model_file,
+    )
+
     print(f"Trained model was saved to {output_model_file}")
