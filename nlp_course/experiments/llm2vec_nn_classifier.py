@@ -81,7 +81,7 @@ def llm2vec_classifier_training_loop(
     y_test: list[int],
     llm2vec_cls: LLM2VecClassifier,
     epochs: int = 100,
-):
+) -> LLM2VecClassifier:
     device = get_device()
     # expects *logits* as the input, it'll apply softmax by itself.
     cross_entropy_loss_fn = nn.CrossEntropyLoss()
@@ -123,7 +123,7 @@ def llm2vec_classifier_training_loop(
     return model
 
 
-def predict_sentiment(model: LLM2VecClassifier, text: str):
+def predict_sentiment(model: LLM2VecClassifier, text: str) -> str:
     model.eval()
     with torch.no_grad():
         logits = model([text])  # Pass the text as a list
@@ -158,7 +158,7 @@ if __name__ == "__main__":
         hidden_units=8,
     )
 
-    trained_clf = llm2vec_classifier_training_loop(
+    trained_cls = llm2vec_classifier_training_loop(
         X_train=hebsentiment_dataset["train"]["text"],
         y_train=hebsentiment_dataset["train"][NUMERICAL_TARGET_COLUMN],
         X_test=hebsentiment_dataset["test"]["text"],
@@ -167,7 +167,9 @@ if __name__ == "__main__":
         epochs=args.epochs,
     )
 
-    torch.save(trained_clf.state_dict(), args.output_dir)
+    output_model_file = args.output_dir + "/llm2vec_sentiment_classifier.pth"
+    torch.save(trained_cls.state_dict(), output_model_file)
+    print(f"Trained model was saved to {output_model_file}")
 
     # s = "אני שמח מאוד מאוד!!!!"
     # sentiment = predict_sentiment(trained_clf, s)
