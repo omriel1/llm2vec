@@ -48,6 +48,10 @@
     "type": {
       "dtype": "string",
       "_type": "Value"
+    },
+    "numerical_label": {
+      "dtype": "int64",
+      "_type": "Value"
     }
   },
   "homepage": "",
