@@ -13,7 +13,7 @@ EMBEDDINGS_DIR = BASE_DIR / "nlp_course" / "experiments" / "v1" / "embeddings"
 TrainTestSplit = namedtuple("TrainTestSplit", field_names=["X_train", "y_train", "X_test", "y_test"])
 
 def generate_llm2vec_embeddings(model: LLM2Vec, texts: List[str]) -> List[List[float]]:
-    # Note that, "with toch.no_grad()" is included in LLM2Vec.encode
+    # Note that, "with torch.no_grad()" is included in LLM2Vec.encode
     embeddings = model.encode(texts)
     return embeddings
 
