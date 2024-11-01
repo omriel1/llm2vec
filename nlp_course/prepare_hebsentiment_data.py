@@ -14,9 +14,16 @@ BASE_DATA_DIR = BASE_DIR / "nlp_course" / "sentiment_data"
 OUTPUT_DIR = BASE_DATA_DIR / "HebSentiment"
 
 
-def prepare_hebsetiment_data() -> None:
+def prepare_hebsentiment_data() -> None:
     if os.path.exists(OUTPUT_DIR.as_posix()):
         return
+
+    def strip_tag_ids(row):
+        """
+        Fix an issue where there exists "Neutral" and "Neutral " labels.
+        """
+        row["tag_ids"] = row["tag_ids"].strip()
+        return row
 
     dataset = datasets.DatasetDict()
 
@@ -26,6 +33,7 @@ def prepare_hebsetiment_data() -> None:
             "json",
             data_files=data_dir.as_posix(),
         )
+        data["train"] = data["train"].map(strip_tag_ids)
         dataset[split] = data["train"]
 
     dataset.save_to_disk(OUTPUT_DIR.as_posix())
@@ -37,4 +45,6 @@ def load_hebsetiment_data() -> Union[Dataset, DatasetDict]:
 
 
 if __name__ == "__main__":
-    load_hebsetiment_data()
+    prepare_hebsentiment_data()
+    # ds = load_hebsetiment_data()
+    # print(ds)
