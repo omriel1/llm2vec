@@ -6,6 +6,7 @@ which emphasized very good points regarding the cross entropy loss and its expec
 """
 
 import argparse
+from typing import Dict, Any, List
 
 import torch
 from torch import nn
@@ -123,13 +124,36 @@ def llm2vec_classifier_training_loop(
     return model
 
 
-def predict_sentiment(model: LLM2VecClassifier, text: str) -> str:
+def predict_sentiment(
+    model: LLM2VecClassifier, texts: list[str]
+) -> List[Dict[str, Any]]:
     model.eval()
+    results = []
+
     with torch.no_grad():
-        logits = model([text])  # Pass the text as a list
-        probabilities = torch.softmax(logits, dim=1)
-        predicted_label = probabilities.argmax(dim=1).item()
-    return get_label_from_index(predicted_label)
+        # Pass the batch of texts through the model to get logits
+        logits = model(texts)  # List of texts passed in one forward pass
+        probabilities = torch.softmax(logits, dim=1)  # Convert logits to probabilities
+
+        # For each text, get predicted label and probability distribution
+        for i in range(len(texts)):
+            predicted_label_idx = probabilities[i].argmax().item()
+            predicted_label = get_label_from_index(predicted_label_idx)
+            probs = (
+                probabilities[i].cpu().numpy().tolist()
+            )  # Convert probabilities to list format
+
+            results.append(
+                {
+                    "text": texts[i],
+                    "predicted_label": predicted_label,
+                    "probabilities": {
+                        get_label_from_index(j): probs[j] for j in range(len(probs))
+                    },
+                }
+            )
+
+    return results
 
 
 if __name__ == "__main__":
@@ -167,10 +191,15 @@ if __name__ == "__main__":
         epochs=args.epochs,
     )
 
-    output_model_file = args.output_dir + "/llm2vec_sentiment_classifier.pth"
-    torch.save(trained_cls.state_dict(), output_model_file)
-    print(f"Trained model was saved to {output_model_file}")
+    output_model_file = args.output_dir + "/llm2vec_classifier_head.pth"
 
-    # s = "אני שמח מאוד מאוד!!!!"
-    # sentiment = predict_sentiment(trained_clf, s)
-    # print(sentiment)
+    torch.save(
+        {
+            "linear_layer_stack_state_dict": l2v_cls.linear_layer_stack.state_dict(),
+            "embedding_dim": l2v_cls.embedding_dim,  # Useful if you want to reinitialize with the same dimensions
+            "num_labels": l2v_cls.num_labels,
+        },
+        output_model_file,
+    )
+
+    print(f"Trained model was saved to {output_model_file}")
