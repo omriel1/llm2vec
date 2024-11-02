@@ -1,5 +1,6 @@
 import torch
 
+
 def get_device() -> str:
     if torch.backends.mps.is_available():
         return "mps"  # mac GPU
