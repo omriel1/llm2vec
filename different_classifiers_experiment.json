@@ -1,0 +1,26 @@
+{
+    "intfloat/multilingual-e5-large": {
+        "logistic_regression_classifier": {
+            "accuracy": 0.8064516129032258,
+            "classification_report": "              precision    recall  f1-score   support\n\n    Negative       0.81      0.75      0.78       433\n     Neutral       0.82      0.86      0.84      1234\n    Positive       0.76      0.72      0.74       503\n\n    accuracy                           0.81      2170\n   macro avg       0.80      0.78      0.79      2170\nweighted avg       0.81      0.81      0.81      2170\n"
+        }
+    },
+    "sentence-transformers/paraphrase-multilingual-mpnet-base-v2": {
+        "logistic_regression_classifier": {
+            "accuracy": 0.7903225806451613,
+            "classification_report": "              precision    recall  f1-score   support\n\n    Negative       0.76      0.73      0.75       433\n     Neutral       0.80      0.86      0.83      1234\n    Positive       0.79      0.67      0.72       503\n\n    accuracy                           0.79      2170\n   macro avg       0.78      0.75      0.77      2170\nweighted avg       0.79      0.79      0.79      2170\n"
+        }
+    },
+    "onlplab/alephbert-base": {
+        "logistic_regression_classifier": {
+            "accuracy": 0.7889400921658987,
+            "classification_report": "              precision    recall  f1-score   support\n\n    Negative       0.76      0.70      0.73       433\n     Neutral       0.81      0.87      0.84      1234\n    Positive       0.76      0.67      0.71       503\n\n    accuracy                           0.79      2170\n   macro avg       0.78      0.75      0.76      2170\nweighted avg       0.79      0.79      0.79      2170\n"
+        }
+    },
+    "imvladikon/alephbertgimmel-base-512": {
+        "logistic_regression_classifier": {
+            "accuracy": 0.7912442396313364,
+            "classification_report": "              precision    recall  f1-score   support\n\n    Negative       0.80      0.70      0.74       433\n     Neutral       0.80      0.87      0.83      1234\n    Positive       0.76      0.67      0.71       503\n\n    accuracy                           0.79      2170\n   macro avg       0.79      0.75      0.76      2170\nweighted avg       0.79      0.79      0.79      2170\n"
+        }
+    }
+}
