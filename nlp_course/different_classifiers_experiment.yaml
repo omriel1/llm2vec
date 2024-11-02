@@ -1,4 +1,4 @@
-experiment_name: "sentence_transformers_classifiers_experiment"
+experiment_name: "different_classifiers_experiment"
 
 dataset: "HebSentiment"
 
@@ -10,6 +10,14 @@ encoders:
   - paraphrase-multilingual-mpnet-base-v2:
       type: "sentence_transformers"
       model_name: "sentence-transformers/paraphrase-multilingual-mpnet-base-v2"
+
+  - alephbert-base:
+      type: "plm_bert_based"
+      model_name: "onlplab/alephbert-base"
+
+  - alephbertgimmel-base-512:
+      type: "plm_bert_based"
+      model_name: "imvladikon/alephbertgimmel-base-512"
 
 classifiers:
   - logistic_regression_classifier:

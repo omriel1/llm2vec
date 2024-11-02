@@ -14,6 +14,7 @@ from nlp_course.encoder import (
     LLM2VecEncoder,
     SentenceTransformersEncoder,
     BaseSentenceEncoder,
+    PLMBERTBasedEncoder,
 )
 from nlp_course.experiment_data_generator import ExperimentDataGenerator
 from nlp_course.prepare_hebsentiment_data import load_hebsetiment_data
@@ -44,6 +45,9 @@ def initialize_encoder(encoder_config: dict) -> BaseSentenceEncoder:
 
         case "sentence_transformers":
             return SentenceTransformersEncoder(model_name=model_name)
+
+        case "plm_bert_based":
+            return PLMBERTBasedEncoder(model_name="onlplab/alephbert-base")
 
         case _:
             raise ValueError(f"Unknown encoder type: {encoder_type}")
