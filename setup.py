@@ -29,6 +29,7 @@ setup(
         "python-dotenv",
         "langchain-text-splitters",
         "sentence-transformers",
+        "tqdm",
         "black"
     ],
     extras_require={
