@@ -28,6 +28,7 @@ setup(
         "scikit-learn",
         "python-dotenv",
         "langchain-text-splitters",
+        "sentence-transformers",
         "black"
     ],
     extras_require={

@@ -1,0 +1,22 @@
+experiment_name: "sentence_transformers_classifiers_experiment"
+
+dataset: "HebSentiment"
+
+encoders:
+  - multilingual-e5-large:
+      type: "sentence_transformers"
+      model_name: "intfloat/multilingual-e5-large"
+
+  - paraphrase-multilingual-mpnet-base-v2:
+      type: "sentence_transformers"
+      model_name: "sentence-transformers/paraphrase-multilingual-mpnet-base-v2"
+
+classifiers:
+  - logistic_regression_classifier:
+      type: "sklearn"
+      method: "logistic_regression"
+      params:
+        - random_state: 0
+        - C: 1.0
+        - max_iter: 20
+        - verbose: 1

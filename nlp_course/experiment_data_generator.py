@@ -1,3 +1,4 @@
+import os.path
 from collections import namedtuple
 from pathlib import Path
 
@@ -35,7 +36,11 @@ class ExperimentDataGenerator:
         if not base_cache_dir:
             self.cache_dir = None
         else:
-            cache_dir = Path(base_cache_dir) / dataset_name / self.encoder.model_name
+            cache_dir = (
+                Path(base_cache_dir)
+                / dataset_name
+                / self._get_model_name_for_caching_folder()
+            )
             cache_dir.mkdir(exist_ok=True)
             self.cache_dir = cache_dir
 
@@ -79,7 +84,10 @@ class ExperimentDataGenerator:
     ) -> torch.Tensor | None:
         if self.cache_dir is None:
             return None
-        embeddings = torch.load(self._get_cache_file_name(dataset_split))
+        cache_file = self._get_cache_file_name(dataset_split)
+        if not os.path.exists(cache_file):
+            return None
+        embeddings = torch.load(cache_file)
         return embeddings
 
     def _put_embeddings_for_dataset_split_in_cache(
@@ -94,3 +102,7 @@ class ExperimentDataGenerator:
             file_prefix = self.cache_dir / dataset_split
             file_name = file_prefix.as_posix() + ".pt"
         return file_name
+
+    def _get_model_name_for_caching_folder(self) -> str:
+        model_name = self.encoder.model_name
+        return model_name.replace("/", "-")

@@ -13,11 +13,12 @@ from nlp_course import BASE_DIR
 BASE_DATA_DIR = BASE_DIR / "nlp_course" / "sentiment_data"
 OUTPUT_DIR = BASE_DATA_DIR / "HebSentiment"
 
-class_names = ['Negative', 'Neutral', 'Positive']
+class_names = ["Negative", "Neutral", "Positive"]
 class_to_index = {name: idx for idx, name in enumerate(class_names)}
 index_to_class = {idx: name for name, idx in class_to_index.items()}
 
 NUMERICAL_TARGET_COLUMN = "numerical_label"
+
 
 def get_label_from_index(idx: int) -> str:
     return index_to_class[idx]
