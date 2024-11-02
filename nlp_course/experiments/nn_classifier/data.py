@@ -16,10 +16,9 @@ def generate_llm2vec_embeddings(model: LLM2Vec, texts: List[str]) -> List[List[f
     embeddings = model.encode(texts)
     return embeddings
 
+
 def generate_train_test_data(
-        embedding_model: LLM2Vec,
-        dataset: DatasetDict,
-        target_column: str = "tag_ids"
+    embedding_model: LLM2Vec, dataset: DatasetDict, target_column: str = "tag_ids"
 ) -> TrainTestSplit:
     """
     This method generates the train and test data.

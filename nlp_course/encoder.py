@@ -3,10 +3,11 @@ from pathlib import Path
 
 import torch
 from sentence_transformers import SentenceTransformer
-
+from transformers import BertModel, BertTokenizerFast
 from llm2vec import LLM2Vec
 from nlp_course import BASE_DIR
 from nlp_course.utils import get_device
+from tqdm import tqdm
 
 
 class BaseSentenceEncoder(ABC):
@@ -74,20 +75,43 @@ class SentenceTransformersEncoder(BaseSentenceEncoder):
         return torch.from_numpy(embeddings)
 
 
-class PLMBERTBaserEncoder(BaseSentenceEncoder):
+class PLMBERTBasedEncoder(BaseSentenceEncoder):
     """
     Stands for "Pre-trained Language model BERT based", which essentially mean
     we're using an encoder which is a variation of BERT, and the assumption is that
     it's regular encoder model, that is returns *vector for each token*.
     """
 
-    pass
+    def __init__(self, model_name: str):
+        super().__init__(model_name=model_name)
+        self.model = None
+        self.tokenizer = None
+
+    def _initialize(self) -> None:
+        if (self.model is None) or (self.tokenizer is None):
+            self.tokenizer = BertTokenizerFast.from_pretrained(self.model_name)
+            model = BertModel.from_pretrained(self.model_name)
+            model.eval()
+            self.model = model
+
+    def encode(self, texts: list[str], batch_size: int = 32) -> torch.Tensor:
+        self._initialize()  # apply lazy loading
+        embeddings = []
+
+        for i in tqdm(range(0, len(texts), batch_size), desc="Encoding sentences"):
+            batch_texts = texts[i : i + batch_size]
+            inputs = self.tokenizer(
+                batch_texts, return_tensors="pt", padding=True, truncation=True
+            )
+            outputs = self.model(**inputs)
+            batch_embeddings = outputs.last_hidden_state[:, 0, :]  # get [CLS] vector
+            embeddings.append(batch_embeddings)
+
+        return torch.cat(embeddings, dim=0)
 
 
 if __name__ == "__main__":
-    sbert = SentenceTransformersEncoder(
-        model_name="sentence-transformers/paraphrase-multilingual-mpnet-base-v2"
-    )
-    sentences = ["היי מה קורה?", "הכל טוב מלך?"]
-    embeddings = sbert.encode(sentences)
+    encoder = PLMBERTBasedEncoder(model_name="imvladikon/alephbertgimmel-base-512")
+    sentences = ["אני ממש שמח לראות אותך!", "הרסת לי את כל היום", "איזה כיף לנו!!!"]
+    embeddings = encoder.encode(sentences)
     print(embeddings)
