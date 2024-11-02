@@ -8,7 +8,9 @@ from nlp_course.experiments.nn_classifier.llm2vec_nn_classifier import (
     LLM2VecClassifier,
     predict_sentiment,
 )
-from nlp_course.experiments.nn_classifier.sklearn_classifier import create_classification_report
+from nlp_course.experiments.nn_classifier.sklearn_classifier import (
+    create_classification_report,
+)
 from nlp_course.prepare_hebsentiment_data import (
     load_hebsetiment_data,
 )
