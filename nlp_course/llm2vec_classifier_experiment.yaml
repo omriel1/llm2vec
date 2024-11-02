@@ -1,0 +1,32 @@
+experiment_name: "llm2vec_classifier_experiment"
+
+dataset: "HebSentiment"
+
+encoders:
+  - llm2vec-dictalm2.0:
+      type: "llm2vec"
+      model_name: "llm2vec_dictalm2_encoder"
+
+classifiers:
+  - logistic_regression_classifier:
+      type: "sklearn"
+      method: "logistic_regression"
+      params:
+        - random_state: 0
+        - C: 1.0
+        - max_iter: 20
+        - verbose: 1
+
+  - dummy_most_frequent_classifier:
+      type: "sklearn"
+      method: "dummy"
+      params:
+        - strategy: "most_frequent"
+
+  - dummy_uniform_classifier:
+      type: "sklearn"
+      method: "dummy"
+      params:
+        - strategy: "uniform"
+        - random_state: 42
+
