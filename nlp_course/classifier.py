@@ -21,6 +21,12 @@ class BaseSentimentClassifier(ABC):
     def predict(self, texts: list[str]) -> list[str]:
         raise NotImplementedError()
 
+    @abstractmethod
+    def evaluate_self(
+        self, train_test_split: TrainTestSplit, scale: bool = True
+    ) -> dict[str, Any]:
+        raise NotImplementedError()
+
 
 class SklearnSentimentClassifier(BaseSentimentClassifier):
 
