@@ -98,14 +98,18 @@ class PLMBERTBasedEncoder(BaseSentenceEncoder):
         self._initialize()  # apply lazy loading
         embeddings = []
 
+        device = get_device()
+        self.model.to(device)
+
         for i in tqdm(range(0, len(texts), batch_size), desc="Encoding sentences"):
             batch_texts = texts[i : i + batch_size]
             inputs = self.tokenizer(
                 batch_texts, return_tensors="pt", padding=True, truncation=True
-            )
-            outputs = self.model(**inputs)
-            batch_embeddings = outputs.last_hidden_state[:, 0, :]  # get [CLS] vector
-            embeddings.append(batch_embeddings)
+            ).to(device)
+            with torch.no_grad():
+                outputs = self.model(**inputs)
+                batch_embeddings = outputs.last_hidden_state[:, 0, :]  # get [CLS] vector
+                embeddings.append(batch_embeddings.cpu())
 
         return torch.cat(embeddings, dim=0)
 
