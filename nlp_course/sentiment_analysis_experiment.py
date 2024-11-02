@@ -47,7 +47,7 @@ def initialize_encoder(encoder_config: dict) -> BaseSentenceEncoder:
             return SentenceTransformersEncoder(model_name=model_name)
 
         case "plm_bert_based":
-            return PLMBERTBasedEncoder(model_name="onlplab/alephbert-base")
+            return PLMBERTBasedEncoder(model_name=model_name)
 
         case _:
             raise ValueError(f"Unknown encoder type: {encoder_type}")
@@ -132,5 +132,5 @@ def main():
 
 if __name__ == "__main__":
     # python nlp_course/sentiment_analysis_experiment.py -c nlp_course/llm2vec_classifier_experiment.yaml -o .
-    # python nlp_course/sentiment_analysis_experiment.py -c nlp_course/sentence_transformers_classifiers_experiment.yaml -o .
+    # python nlp_course/sentiment_analysis_experiment.py -c nlp_course/different_classifiers_experiment.yaml -o .
     main()
