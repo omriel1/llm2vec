@@ -1,6 +1,5 @@
 import argparse
 import json
-from typing import List, Any
 
 import torch
 from datasets import DatasetDict
@@ -11,14 +10,18 @@ from sklearn.preprocessing import StandardScaler
 
 from llm2vec import LLM2Vec
 from nlp_course import BASE_DIR
-from nlp_course.experiments.data import generate_train_test_data
+from nlp_course.experiments.nn_classifier.data import generate_train_test_data
 from nlp_course.prepare_hebsentiment_data import load_hebsetiment_data
 from nlp_course.utils import get_device
 
 EMBEDDINGS_DIR = BASE_DIR / "nlp_course" / "experiments" / "v1" / "embeddings"
 
 
-def create_classification_report(y_test: List[Any], predictions: List[Any]):
+
+def train_and_evaluate_classifier(X_train, y_train, X_test, y_test, sklearn_classifier):
+    sklearn_classifier.fit(X_train, y_train)
+    predictions = sklearn_classifier.predict(X_test)
+
     accuracy = accuracy_score(y_test, predictions)
     class_report = classification_report(y_test, predictions)
 
@@ -29,16 +32,9 @@ def create_classification_report(y_test: List[Any], predictions: List[Any]):
         "accuracy": accuracy,
         "classification_report": class_report,
     }
-    return results
-
-
-def train_and_evaluate_classifier(X_train, y_train, X_test, y_test, sklearn_classifier):
-    sklearn_classifier.fit(X_train, y_train)
-    predictions = sklearn_classifier.predict(X_test)
-
-    results = create_classification_report(y_test=y_test, predictions=predictions)
-
     return sklearn_classifier, results
+
+
 
 
 def evaluate_llm2vec_embedding_model(embedding_model: LLM2Vec, dataset: DatasetDict):
@@ -57,7 +53,7 @@ def evaluate_llm2vec_embedding_model(embedding_model: LLM2Vec, dataset: DatasetD
     classifiers = [
         (lr_clf, "lr_clf"),
         (dummy_most_frequent_clf, "dummy_most_frequent_clf"),
-        (dummy_uniform_clf, "dummy_uniform_clf"),
+        (dummy_uniform_clf, "dummy_uniform_clf")
     ]
 
     results = {}
@@ -77,12 +73,16 @@ def evaluate_llm2vec_embedding_model(embedding_model: LLM2Vec, dataset: DatasetD
 def main():
     parser = argparse.ArgumentParser(description="Train classifier")
     parser.add_argument(
-        "-o", dest="output", type=str, required=False, default="results.json"
+        "-o",
+        dest="output",
+        type=str,
+        required=False,
+        default="results.json"
     )
     args = parser.parse_args()
 
     peft_model_dir = (
-        BASE_DIR / "output" / "mntp-simcse" / "dictalm2.0-instruct" / "checkpoint-1000"
+            BASE_DIR / "output" / "mntp-simcse" / "dictalm2.0-instruct" / "checkpoint-1000"
     )
 
     l2v = LLM2Vec.from_pretrained(

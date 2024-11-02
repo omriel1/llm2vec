@@ -4,11 +4,11 @@ import json
 import torch
 
 from nlp_course import BASE_DIR
-from nlp_course.experiments.llm2vec_nn_classifier import (
+from nlp_course.experiments.nn_classifier.llm2vec_nn_classifier import (
     LLM2VecClassifier,
     predict_sentiment,
 )
-from nlp_course.experiments.sklearn_classifier import create_classification_report
+from nlp_course.experiments.nn_classifier.sklearn_classifier import create_classification_report
 from nlp_course.prepare_hebsentiment_data import (
     load_hebsetiment_data,
 )

@@ -1,5 +1,4 @@
 import os.path
-from collections import namedtuple
 from typing import List
 
 import torch
@@ -7,10 +6,10 @@ from datasets import DatasetDict
 
 from llm2vec import LLM2Vec
 from nlp_course import BASE_DIR
+from nlp_course.experiment_data_generator import TrainTestSplit
 
 EMBEDDINGS_DIR = BASE_DIR / "nlp_course" / "experiments" / "v1" / "embeddings"
 
-TrainTestSplit = namedtuple("TrainTestSplit", field_names=["X_train", "y_train", "X_test", "y_test"])
 
 def generate_llm2vec_embeddings(model: LLM2Vec, texts: List[str]) -> List[List[float]]:
     # Note that, "with torch.no_grad()" is included in LLM2Vec.encode
