@@ -116,10 +116,9 @@ def llm2vec_classifier_training_loop(
             test_loss = cross_entropy_loss_fn(test_logits, y_test)
             test_acc = accuracy_fn(y_true=y_test, y_pred=test_pred)
 
-        if epoch % 10 == 0:
-            print(
-                f"Epoch: {epoch} | Loss: {loss:.5f}, Acc: {acc:.2f}% | Test Loss: {test_loss:.5f}, Test Acc: {test_acc:.2f}%"
-            )
+        print(
+            f"Epoch: {epoch} | Loss: {loss:.5f}, Acc: {acc:.2f}% | Test Loss: {test_loss:.5f}, Test Acc: {test_acc:.2f}%"
+        )
 
     return model
 
