@@ -1,8 +1,8 @@
 {
     "llm2vec_dictalm2_encoder": {
         "logistic_regression_classifier": {
-            "accuracy": 0.840552995391705,
-            "classification_report": "              precision    recall  f1-score   support\n\n    Negative       0.82      0.80      0.81       433\n     Neutral       0.86      0.88      0.87      1234\n    Positive       0.82      0.77      0.79       503\n\n    accuracy                           0.84      2170\n   macro avg       0.83      0.82      0.82      2170\nweighted avg       0.84      0.84      0.84      2170\n"
+            "accuracy": 0.8419354838709677,
+            "classification_report": "              precision    recall  f1-score   support\n\n    Negative       0.82      0.81      0.82       433\n     Neutral       0.85      0.89      0.87      1234\n    Positive       0.83      0.75      0.79       503\n\n    accuracy                           0.84      2170\n   macro avg       0.83      0.82      0.83      2170\nweighted avg       0.84      0.84      0.84      2170\n"
         },
         "dummy_most_frequent_classifier": {
             "accuracy": 0.5686635944700461,

@@ -29,7 +29,9 @@ class BaseSentenceEncoder(ABC):
 
 
 class LLM2VecEncoder(BaseSentenceEncoder):
-    default_base_model = "dicta-il/dictalm2.0-instruct"
+    default_base_model = (
+        BASE_DIR / "output" / "mntp" / "dictalm2.0-instruct"
+    )
     default_peft_model = (
         BASE_DIR / "output" / "mntp-simcse" / "dictalm2.0-instruct" / "checkpoint-1000"
     )
