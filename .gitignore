@@ -13,3 +13,4 @@ venv
 .idea
 .env
 *.pt
+.DS_Store
